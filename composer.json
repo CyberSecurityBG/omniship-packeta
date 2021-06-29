@@ -1,0 +1,25 @@
+{
+    "name": "awsbg/omniship-packeta",
+
+    "description": "PHP library to communicate with the courier Cargus.",
+
+    "require": {
+        "php": "^7",
+        "simexis/omniship": "dev-master"
+    },
+
+    "license": "LGPL-2.1",
+
+    "autoload": {
+        "psr-4": {
+            "Omniship\\Packeta\\": "src"
+        }
+    },
+
+    "authors": [
+        {
+            "name": "Stoyan Stoimenov",
+            "email": "s.stoimenovbg@gmail.com"
+        }
+    ]
+}

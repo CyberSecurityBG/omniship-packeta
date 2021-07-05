@@ -2,20 +2,20 @@
 
 namespace Omniship\Packeta;
 
-use Omniship\Cargus\Http\GetPdfRequest;
-use Omniship\Cargus\Http\ShippingQuoteRequest;
-use Omniship\Cargus\Http\ValidateCredentialsRequest;
-use Omniship\Cargus\Http\CreateBillOfLadingRequest;
+use Omniship\Packeta\Http\ValidateCredentialsRequest;
+//use Omniship\Cargus\Http\GetPdfRequest;
+//use Omniship\Cargus\Http\ShippingQuoteRequest;
+//use Omniship\Cargus\Http\CreateBillOfLadingRequest;
 
 use Omniship\Common\AbstractGateway;
-use Omniship\Cargus\Client;
+use Omniship\Packeta\Client;
 
 class Gateway extends AbstractGateway
 {
 
     private $name = 'Packeta';
     protected $client;
-    const TRACKING_URL = 'https://berry.bg/bg/t/';
+    const TRACKING_URL = '';
 
     /**
      * @return stringc
@@ -35,49 +35,51 @@ class Gateway extends AbstractGateway
         return $this;
     }
 
+
+    /**
+     * @return stringc
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param $country
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+        return $this;
+    }
+
     /**
      * @return array
      */
     public function getDefaultParameters()
     {
         return array(
-            'username' => '',
-            'password' => '',
-            'key_primary' => '',
-            'key_secondary' => '',
+            'country' => '',
+            'api_key' => '',
+            'api_password' => '',
         );
     }
 
-    public function getUsername() {
-        return $this->getParameter('username');
+    public function getApiKey() {
+        return $this->getParameter('api_key');
     }
 
-    public function setUsername($value) {
-        return $this->setParameter('username', $value);
+    public function setApiKey($value) {
+        return $this->setParameter('api_key', $value);
     }
 
-    public function getPassword() {
-        return $this->getParameter('password');
+    public function getApiPassword() {
+        return $this->getParameter('api_password');
     }
 
-    public function setPassword($value) {
-        return $this->setParameter('password', $value);
-    }
-
-    public function getKeyPrimary() {
-        return $this->getParameter('key_primary');
-    }
-
-    public function setKeyPrimary($value) {
-        return $this->setParameter('key_primary', $value);
-    }
-
-    public function getKeySecondary() {
-        return $this->getParameter('key_secondary');
-    }
-
-    public function setKeySecondary($value) {
-        return $this->setParameter('key_secondary', $value);
+    public function setApiPassword($value) {
+        return $this->setParameter('api_password', $value);
     }
 
     /**
@@ -91,7 +93,7 @@ class Gateway extends AbstractGateway
     public function getClient()
     {
         if (is_null($this->client)) {
-            $this->client = new Client($this->getUsername(), $this->getPassword(), $this->getKeyPrimary(), $this->getKeySecondary());
+            $this->client = new Client($this->getCountry(), $this->getApiKey(), $this->getApiPassword());
         }
 
         return $this->client;

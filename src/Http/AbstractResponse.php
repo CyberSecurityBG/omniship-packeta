@@ -1,8 +1,8 @@
 <?php
 
-namespace Omniship\Cargus\Http;
+namespace Omniship\Packeta\Http;
 
-use Omniship\Cargus\Client;
+use Omniship\Packeta\Client;
 use Omniship\Message\AbstractResponse AS BaseAbstractResponse;
 
 class AbstractResponse extends BaseAbstractResponse
@@ -30,21 +30,7 @@ class AbstractResponse extends BaseAbstractResponse
      */
     public function getMessage()
     {
-        if(isset($this->getClient()->getError()['error']->Error) || is_array($this->getClient()->getError()['error']) || !empty($this->getClient()->getError()['error']) || isset($this->data->Error)){
-            if(isset($this->data->Error)) {
-                $message =  $this->data->Error;
-            }
-            if( is_array($this->getClient()->getError()['error'])){
-                $message = implode('<br />', $this->getClient()->getError()['error']);
-            } elseif(!empty($this->getClient()->getError()['error'])){
-                $message = $this->getClient()->getError()['error'];
-            } else {
-                $message = $this->getClient()->getError()['error']->Error;
-            }
-        }
-        if(isset($message)) {
-            return $message;
-        }
+        return null;
     }
 
     /**

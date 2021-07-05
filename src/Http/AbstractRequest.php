@@ -1,52 +1,74 @@
 <?php
 
-namespace Omniship\Cargus\Http;
+namespace Omniship\Packeta\Http;
 
-use Omniship\Cargus\Client as CargusClient;
+use Omniship\Packeta\Client as PacketaClient;
 
 use Omniship\Message\AbstractRequest as BaseAbstractRequest;
+use Omniship\Packeta\Gateway;
 
 abstract class AbstractRequest extends BaseAbstractRequest
 {
     protected $client;
 
-    public function getUsername(){
-        return $this->getParameter('username');
+    /**
+     * @return stringc
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
-    public function setUsername($value){
-        return $this->setParameter('username', $value);
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
     }
 
-    public function getPassword(){
-        return $this->getParameter('password');
+
+    /**
+     * @return stringc
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 
-    public function setPassword($value){
-        return $this->setParameter('password', $value);
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+        return $this;
     }
 
-    public function getKeyPrimary(){
-        return $this->getParameter('key_primary');
+    public function getApiKey() {
+        return $this->getParameter('api_key');
     }
 
-    public function setKeyPrimary($value){
-        return $this->setParameter('key_primary', $value);
+    public function setApiKey($value) {
+        return $this->setParameter('api_key', $value);
     }
 
-    public function getKeySecondary(){
-        return $this->getParameter('key_secondary');
+    public function getApiPassword() {
+        return $this->getParameter('api_password');
     }
 
-    public function setKeySecondary($value){
-        return $this->setParameter('key_secondary', $value);
+    public function setApiPassword($value) {
+        return $this->setParameter('api_password', $value);
     }
 
 
     public function getClient()
     {
         if(is_null($this->client)) {
-            $this->client = new CargusClient($this->getUsername(), $this->getPassword(), $this->getKeyPrimary(), $this->getKeySecondary());
+            $this->client = new PacketaClient($this->getCountry(), $this->getApiKey(), $this->getApiPassword());
         }
 
         return $this->client;
